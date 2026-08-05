@@ -16,6 +16,15 @@ bun dev
 
 Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
 
+## Local API connection
+
+Run FastAPI on `http://localhost:8000` and Next.js on `http://localhost:3000`.
+The frontend detects localhost and calls `http://localhost:8000/api` automatically.
+If you want an explicit local setting, copy `.env.example` to `.env.local`.
+
+For EC2/Docker deployment, do not copy this file into the frontend build. The
+production reverse proxy serves the API at the same-domain path `/api`.
+
 You can start editing the page by modifying `app/page.tsx`. The page auto-updates as you edit the file.
 
 This project uses [`next/font`](https://nextjs.org/docs/app/building-your-application/optimizing/fonts) to automatically optimize and load [Geist](https://vercel.com/font), a new font family for Vercel.

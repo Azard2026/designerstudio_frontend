@@ -3,6 +3,7 @@
 import { useState, useEffect, useCallback } from "react";
 import Link from "next/link";
 import KelebekLogo from "../components/KelebekLogo";
+import { API_BASE } from "../lib/api";
 
 type PortfolioItem = {
   id: number;
@@ -63,13 +64,13 @@ export default function PortfolioPage() {
     const onScroll = () => setScrolled(window.scrollY > 50);
     window.addEventListener("scroll", onScroll);
 
-    fetch("http://localhost:8000/api/portfolio")
+    fetch(`${API_BASE}/portfolio`)
       .then((r) => r.json())
       .then((d) => { if (Array.isArray(d)) setItems(d); })
       .catch(() => {})
       .finally(() => setLoading(false));
 
-    fetch("http://localhost:8000/api/settings")
+    fetch(`${API_BASE}/settings`)
       .then((r) => r.json())
       .then((d) => setSiteSettings(d))
       .catch(() => {});

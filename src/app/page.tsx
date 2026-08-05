@@ -4,6 +4,9 @@ import { useState, useEffect } from "react";
 import { motion, AnimatePresence } from "framer-motion";
 import KelebekLogo from "./components/KelebekLogo";
 import LuxuryParticles from "./components/LuxuryParticles";
+import AboutUs from "./components/AboutUs";
+import BranchLocations from "./components/BranchLocations";
+import { API_BASE } from "../lib/api";
 
 export default function Home() {
   const [scrolled, setScrolled] = useState(false);
@@ -18,12 +21,12 @@ export default function Home() {
     const onScroll = () => setScrolled(window.scrollY > 60);
     window.addEventListener("scroll", onScroll);
 
-    fetch("http://localhost:8000/api/settings")
+    fetch(`${API_BASE}/settings`)
       .then((r) => r.json())
       .then((d) => setSiteSettings(d))
       .catch(() => {});
 
-    fetch("http://localhost:8000/api/portfolio")
+    fetch(`${API_BASE}/portfolio`)
       .then((r) => r.json())
       .then((d) => {
         if (Array.isArray(d)) {
@@ -44,7 +47,7 @@ export default function Home() {
     e.preventDefault();
     setFormStatus("sending");
     try {
-      const res = await fetch("http://localhost:8000/api/leads", {
+      const res = await fetch(`${API_BASE}/leads`, {
         method: "POST",
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify({ ...formData, status: "New" }),
@@ -365,64 +368,9 @@ export default function Home() {
         </div>
       </section>
 
-      {/* ── ABOUT / STUDIO STORY ── */}
-      <section id="about" className="section about">
-        <div className="container">
-          <div className="about-grid">
-            <motion.div
-              className="about-visual"
-              initial={{ opacity: 0, x: -40 }}
-              whileInView={{ opacity: 1, x: 0 }}
-              viewport={{ once: true }}
-              transition={{ duration: 0.8 }}
-            >
-              <div className="about-image-wrapper">
-                <img src={siteSettings.about_img || "/images/portfolio_boutique_1784468107370.png"} alt="Kelebek Designers Studio" />
-              </div>
-              <div className="about-badge">
-                <div className="badge-number">14+</div>
-                <div className="badge-text">Years of Architectural &amp; Interior Mastery</div>
-              </div>
-            </motion.div>
+      <AboutUs />
 
-            <motion.div
-              className="about-content"
-              initial={{ opacity: 0, x: 40 }}
-              whileInView={{ opacity: 1, x: 0 }}
-              viewport={{ once: true }}
-              transition={{ duration: 0.8 }}
-            >
-              <div className="label">The Kelebek Philosophy</div>
-              <div className="gold-line" />
-              <h2 className="display-md about-heading">
-                Transforming Spaces Into <br />
-                <em>Living Works of Art</em>
-              </h2>
-              <p className="body-lg" style={{ marginBottom: "1.2rem" }}>
-                At <strong>KELEBEK DESIGNERS</strong>, we believe every space carries a distinct voice and identity waiting to be unlocked through architectural clarity and material harmony.
-              </p>
-              <p style={{ fontSize: "0.88rem", color: "var(--text-muted)", lineHeight: 1.9 }}>
-                Our team of senior interior architects, structural stylists, and master craftspeople create tailored interior environments where timeless elegance seamlessly meets modern luxury.
-              </p>
-              <ul className="about-list">
-                <li>Bespoke spatial design tailored to your lifestyle and aesthetic vision</li>
-                <li>Comprehensive project management from conceptual sketches to site execution</li>
-                <li>Global &amp; pan-India sourcing for marble, custom woodwork, and metallic detailing</li>
-                <li>3D Virtual walkthroughs &amp; precision photorealistic rendering</li>
-              </ul>
-              <div className="about-signature">KELEBEK DESIGNERS</div>
-              <p style={{ fontSize: "0.72rem", letterSpacing: "0.1em", textTransform: "uppercase", color: "var(--text-muted)", marginTop: "0.4rem" }}>
-                Interior Design &amp; Architectural Spaces Studio
-              </p>
-              <div style={{ marginTop: "2rem" }}>
-                <a href="#contact" className="btn-primary">
-                  <span>Schedule Studio Visit</span>
-                </a>
-              </div>
-            </motion.div>
-          </div>
-        </div>
-      </section>
+      <BranchLocations />
 
       {/* ── CONTACT & CONSULTATION BOOKING ── */}
       <section id="contact" className="section cta-section">
