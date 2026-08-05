@@ -3,7 +3,7 @@
 import { useState, useEffect } from "react";
 import { motion, AnimatePresence } from "framer-motion";
 import KelebekLogo from "../components/KelebekLogo";
-import { API_BASE } from "../lib/api";
+import { API_BASE } from "../../lib/api";
 
 // --- Types ---
 interface UserProfile {

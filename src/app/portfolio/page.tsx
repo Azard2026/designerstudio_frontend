@@ -3,7 +3,7 @@
 import { useState, useEffect, useCallback } from "react";
 import Link from "next/link";
 import KelebekLogo from "../components/KelebekLogo";
-import { API_BASE } from "../lib/api";
+import { API_BASE } from "../../lib/api";
 
 type PortfolioItem = {
   id: number;
